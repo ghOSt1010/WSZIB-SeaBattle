@@ -19,11 +19,14 @@ public class Board {
    }
 
    public VBox getBoard(){
+      board =new VBox();
+      board.setSpacing(5);
       for (int i = 0; i < this.y_size; i++){
          HBox row =new HBox();
+         row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
-            Point point =new Point(25,25,Color.BLACK);
-            row.getChildren().add(point);
+            Point point =new Point(25,25,Color.AQUA);
+            row.getChildren().add(point.getPoint());
          }
          this.board.getChildren().add(row);
       }

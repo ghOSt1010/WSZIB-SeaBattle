@@ -1,12 +1,16 @@
 package app.UI;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+
+import app.UI.*;
+import javafx.scene.paint.Color;
 
 //import java.awt.*;
 
@@ -23,8 +27,10 @@ public class SceneCreator {
 
       //setting labels
       Label lbPlayer =new Label("Player");
+      lbPlayer.setAlignment(Pos.CENTER);
       grid.add(lbPlayer,2,1);
       Label lbPC =new Label("PC");
+      lbPC.setAlignment(Pos.CENTER);
       grid.add(lbPC,4,1);
 
       //setting button
@@ -32,18 +38,14 @@ public class SceneCreator {
       grid.add(btnStartNewGame,5,1);
 
       //setting Player and PC boards
-      Button b1 =new Button("1");
-      Button b2 =new Button("2");
-      Button b11 =new Button("11");
-      Button b22 =new Button("22");
-      HBox h1 =new HBox(b1,b2);
-      HBox h2 =new HBox(b11,b22);
-      VBox v1 =new VBox(h1,h2);
+      Board playerBoard =new Board(10,10);
+      Board pcBoard =new Board(10,10);
 
-      grid.add(v1,2,2);
+      grid.add(playerBoard.getBoard(),2,2);
+      grid.add(pcBoard.getBoard(),4,2);
 
 
-      Scene appWindow =new Scene(grid,940,520);
+      Scene appWindow =new Scene(grid,900,520);
 
 
       return appWindow;

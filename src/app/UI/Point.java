@@ -3,6 +3,7 @@ package app.UI;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
+
 public class Point extends Rectangle{
 
       private int x;
@@ -30,6 +31,14 @@ public class Point extends Rectangle{
 
       public void hideContent(){
          this.color = Color.AQUA;
+      }
+
+      public void setColor(Color color){
+         this.color = color;
+      }
+
+      public void setDefaultColor(){
+         this.color = Color.DARKBLUE;
       }
 
 }

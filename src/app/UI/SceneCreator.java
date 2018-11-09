@@ -1,5 +1,7 @@
 package app.UI;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +13,9 @@ import javafx.scene.control.Button;
 
 import app.UI.*;
 import javafx.scene.paint.Color;
+
+import java.awt.event.ActionEvent;
+
 
 //import java.awt.*;
 
@@ -36,6 +41,12 @@ public class SceneCreator {
       //setting button
       Button btnStartNewGame =new Button("New Game");
       grid.add(btnStartNewGame,5,1);
+      btnStartNewGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+         @Override
+         public void handle(MouseEvent event) {
+            System.out.println("New Game Started");
+         }
+      });
 
       //setting Player and PC boards
       Board playerBoard =new Board(10,10);
@@ -43,7 +54,6 @@ public class SceneCreator {
 
       grid.add(playerBoard.getBoard(),2,2);
       grid.add(pcBoard.getBoard(),4,2);
-
 
       Scene appWindow =new Scene(grid,900,520);
 

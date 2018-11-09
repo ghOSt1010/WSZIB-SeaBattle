@@ -1,5 +1,6 @@
 package app.UI;
 
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -7,7 +8,8 @@ import javafx.scene.paint.Color;
 
 import app.UI.Point;
 
-public class Board {
+
+public class Board{
 
    private int x_size;
    private int y_size;
@@ -26,30 +28,21 @@ public class Board {
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(25,25,Color.AQUA);
-            point.setOnMouseClicked(event -> OnMouseClicked(event));
-            point.setOnMouseClicked(event -> OnMouseEntered(event));
-            point.setOnMouseClicked(event -> OnMouseExited(event));
-            row.getChildren().add(point.getPoint());
+
+            point.setOnMouseClicked(new EventHandler<MouseEvent>() {
+               @Override
+               public void handle(MouseEvent event) {
+                  Point point = (Point) event.getSource();
+                  point.setColor(Color.RED);
+                  System.out.println("hit");
+               }
+            });
+
+            row.getChildren().add(point);
          }
          this.board.getChildren().add(row);
       }
       return this.board;
-   }
-
-   private void OnMouseClicked(MouseEvent e){
-      Point point = (Point) e.getSource();
-      point.hit();
-   }
-
-   private void OnMouseEntered(MouseEvent e){
-      Point point = (Point) e.getSource();
-      point.setColor(Color.ORANGE);
-
-   }
-
-   private void OnMouseExited(MouseEvent e){
-      Point point = (Point) e.getSource();
-      point.setDefaultColor();
    }
 
 }

@@ -39,14 +39,13 @@ public class SceneCreator {
       btnStartNewGame.setOnMouseClicked(event -> onMouseClicked(event));
 
       //setting Player and PC boards
-      Board playerBoard =new Board(10,10);
-      Board pcBoard =new Board(10,10);
+      Board playerBoard =new Board(10,10,true);
+      Board pcBoard =new Board(10,10,false);
 
-      grid.add(playerBoard.getBoard(),2,2);
-      grid.add(pcBoard.getBoard(),4,2);
+      grid.add(playerBoard,2,2);
+      grid.add(pcBoard,4,2);
 
       Scene appWindow =new Scene(grid,900,520);
-
 
       return appWindow;
    }

@@ -8,43 +8,43 @@ import javafx.scene.paint.Color;
 
 import app.UI.Point;
 
-
-public class Board{
+public class Board extends VBox{
 
    private int x_size;
    private int y_size;
+   private boolean canShoot;
    private VBox board;
 
-   Board(int x_size, int y_size){
+   Board(int x_size, int y_size, boolean canShoot){
      this.x_size = x_size;
      this.y_size = y_size;
+     this.canShoot = canShoot;
+     initBoard();
    }
 
-   public VBox getBoard(){
-      board =new VBox();
-      board.setSpacing(5);
+   private void initBoard(){
+      this.setSpacing(5);
       for (int i = 0; i < this.y_size; i++){
          HBox row =new HBox();
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
-            Point point =new Point(25,25,Color.AQUA);
+            Point point =new Point(25,25,Color.BLUE);
             point.setOnMouseClicked(event -> OnMouseClicked(event));
-            point.setOnMouseReleased(event -> onMouseReleased(event));
             row.getChildren().add(point);
          }
-         this.board.getChildren().add(row);
+         this.getChildren().add(row);
       }
-      return this.board;
-   }
-
-   private void onMouseReleased(MouseEvent event) {
-      Point point =(Point) event.getSource();
-      point.setColor(Color.RED);
    }
 
    private void OnMouseClicked(MouseEvent event) {
-      Point point = (Point) event.getSource();
-      point.setColor(Color.RED);
+      if (this.canShoot) {
+         Point point = (Point) event.getSource();
+         point.setColor(Color.ORANGE);
+      }
+   }
+
+   public void setCanShoot(boolean canShoot){
+      this.canShoot = canShoot;
    }
 
 }

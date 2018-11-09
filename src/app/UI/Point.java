@@ -21,7 +21,7 @@ public class Point extends Rectangle{
       }
 
       public void hit(){
-         this.color = Color.RED;
+         setFill(Color.RED);
       }
 
       public void setColor(Color color){
@@ -29,10 +29,7 @@ public class Point extends Rectangle{
       }
 
       public void setDefaultColor(){
-         this.color = Color.AQUA;
+         setFill(Color.AQUA);
       }
 
-      public void setOnMouseClicked() {
-
-      }
 }

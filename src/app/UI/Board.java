@@ -26,7 +26,7 @@ public class Board {
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(25,25,Color.AQUA);
-            row.getChildren().add(point.getPoint());
+            row.getChildren().add(point);
          }
          this.board.getChildren().add(row);
       }

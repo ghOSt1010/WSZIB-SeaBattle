@@ -12,8 +12,6 @@ public class Point extends Rectangle{
 
       Point(int x, int y, Color color){
          super(25,25,color);
-         if (x==0) this.x = 25;
-         if (y==0) this.y = 25;
          this.color = color;
       }
       Point(int x,int y, int width, int height, Color color){

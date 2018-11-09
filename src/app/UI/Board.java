@@ -44,7 +44,6 @@ public class Board{
 
    private void OnMouseClicked(MouseEvent event) {
       Point point = (Point) event.getSource();
-      System.out.println(event.getSource());
       point.setColor(Color.RED);
    }
 

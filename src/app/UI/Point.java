@@ -12,9 +12,11 @@ public class Point extends Rectangle{
       private boolean wasHit;
 
       Point(int x, int y, Color color){
+         super(x,y,color);
          this.x = x;
          this.y = y;
          this.color = color;
+         //to be removed
          this.rect =new Rectangle(this.x,this.y,this.color);
       }
 

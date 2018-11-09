@@ -10,14 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-
-import app.UI.*;
 import javafx.scene.paint.Color;
 
-import java.awt.event.ActionEvent;
-
-
-//import java.awt.*;
+import app.UI.*;
 
 public class SceneCreator {
 
@@ -41,12 +36,7 @@ public class SceneCreator {
       //setting button
       Button btnStartNewGame =new Button("New Game");
       grid.add(btnStartNewGame,5,1);
-      btnStartNewGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
-         @Override
-         public void handle(MouseEvent event) {
-            System.out.println("New Game Started");
-         }
-      });
+      btnStartNewGame.setOnMouseClicked(event -> onMouseClicked(event));
 
       //setting Player and PC boards
       Board playerBoard =new Board(10,10);
@@ -59,6 +49,10 @@ public class SceneCreator {
 
 
       return appWindow;
+   }
+
+   private static void onMouseClicked(MouseEvent event) {
+      System.out.println("New Game Started");
    }
 
 }

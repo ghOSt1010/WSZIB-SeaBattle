@@ -10,9 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-//import java.awt.*;
-
-import app.UI.*;
+import app.UI.SceneCreator;
 
 public class Main extends Application {
 

@@ -28,21 +28,24 @@ public class Board{
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(25,25,Color.AQUA);
-
-            point.setOnMouseClicked(new EventHandler<MouseEvent>() {
-               @Override
-               public void handle(MouseEvent event) {
-                  Point point = (Point) event.getSource();
-                  point.setColor(Color.RED);
-                  System.out.println("hit");
-               }
-            });
-
+            point.setOnMouseClicked(event -> OnMouseClicked(event));
+            point.setOnMouseReleased(event -> onMouseReleased(event));
             row.getChildren().add(point);
          }
          this.board.getChildren().add(row);
       }
       return this.board;
+   }
+
+   private void onMouseReleased(MouseEvent event) {
+      Point point =(Point) event.getSource();
+      point.setColor(Color.RED);
+   }
+
+   private void OnMouseClicked(MouseEvent event) {
+      Point point = (Point) event.getSource();
+      System.out.println(event.getSource());
+      point.setColor(Color.RED);
    }
 
 }

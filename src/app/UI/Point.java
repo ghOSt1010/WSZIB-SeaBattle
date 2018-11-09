@@ -1,11 +1,7 @@
 package app.UI;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-
 
 public class Point extends Rectangle{
 
@@ -15,26 +11,30 @@ public class Point extends Rectangle{
       private boolean wasHit;
 
       Point(int x, int y, Color color){
-         super(x,y,color);
+         super(25,25,color);
+         if (x==0) this.x = 25;
+         if (y==0) this.y = 25;
+         this.color = color;
+      }
+      Point(int x,int y, int width, int height, Color color){
+         super(width,height,color);
          this.x = x;
          this.y = y;
-         this.color = color;
       }
 
       public void hit(){
          this.color = Color.RED;
       }
 
-      public void hideContent(){
-         this.color = Color.AQUA;
-      }
-
       public void setColor(Color color){
-         this.color = color;
+         setFill(color);
       }
 
       public void setDefaultColor(){
-         this.color = Color.DARKBLUE;
+         this.color = Color.AQUA;
       }
 
+      public void setOnMouseClicked() {
+
+      }
 }

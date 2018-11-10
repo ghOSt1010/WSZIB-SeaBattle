@@ -8,7 +8,6 @@ public class Point extends Rectangle{
    private int pos_x;
    private int pos_y;
    private Color color;
-   private String ID;
    private boolean isShip;
 
    Point(int pos_x, int pos_y, Color color){
@@ -36,9 +35,6 @@ public class Point extends Rectangle{
    public void markAsShip(){
       this.setColor(Color.BROWN);
    }
-   public void setID(String id){this.ID = id;}
-   public String getID(){return this.ID;}
-
    public int getPos_x() {
       return pos_x;
    }

@@ -31,27 +31,17 @@ public class Board extends VBox{
          HBox row =new HBox();
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
-            Point point =new Point(25,25,Color.BLUE);
-            point.setID(Integer.toString(i) + Integer.toString(j));
+            Point point =new Point(i,j,Color.BLUE);
+            //point.setID(Integer.toString(i) + Integer.toString(j));
             point.setOnMouseClicked(event -> OnMouseClicked(event));
             row.getChildren().add(point);
          }
          this.getChildren().add(row);
       }
    }
-
-   private void OnMouseClicked(MouseEvent event) {
-      if (this.canShoot) {
-         Point point = (Point) event.getSource();
-         System.out.println(point.getID());
-         point.setColor(Color.ORANGE);
-      }
-   }
-
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
    }
-
    public void placeShip(Point point, Ship ship){
 
       if (this.canPlaceShip(point, ship)){
@@ -88,6 +78,14 @@ public class Board extends VBox{
    public Point getPoint(int x, int y) {
 
       return (Point)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+   }
+   //user interaction
+   private void OnMouseClicked(MouseEvent event) {
+      if (this.canShoot) {
+         Point point = (Point) event.getSource();
+         System.out.println(point.getPos_x() + " " +point.getPos_y());
+         point.setColor(Color.ORANGE);
+      }
    }
 
 }

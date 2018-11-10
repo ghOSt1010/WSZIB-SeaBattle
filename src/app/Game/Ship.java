@@ -1,24 +1,13 @@
 package app.Game;
 
-
-
 public class Ship {
 
+   private int x;
+   private int y;
    private int size;
    private boolean isPlaced;
    private boolean isDestroyed;
    private boolean isVertical;
-
-   /*
-    *  Ships to create
-    *  (1x length 4, 2x length 3, 3x length 2 and 4x length 1).
-    *
-    */
-   //All ships needed : Quantity x Length
-   public Ship[] MicroShips =new Ship[4];   // 4x1
-   public Ship[] MiniShips =new Ship[3];    // 3x2
-   public Ship[] MidShips =new Ship[2];     // 2x3
-   public Ship LongShip = null;             // 1x4
 
    public Ship(int size, boolean isDestroyed, boolean isVertical){
       this.size = size;
@@ -31,21 +20,6 @@ public class Ship {
       this.isDestroyed = false;
       this.isVertical = isVertical;
    }
-   public Ship(){
-      this.initShips();
-   }
-   public void initShips(){
-      for (int i = 0; i < MicroShips.length; i++){
-         MicroShips[i] =new Ship(4,false,true);
-      }
-      for(int i = 0; i < MiniShips.length; i ++){
-         MiniShips[i] =new Ship(3,false,true);
-      }
-      for(int i = 0; i < MidShips.length; i++){
-         MidShips[i] =new Ship(2,false,true);
-      }
-      LongShip =new Ship(4,false,true);
-   }
    public void setDestroyed(){
       this.isDestroyed = true;
    }
@@ -57,5 +31,36 @@ public class Ship {
    }
    public void setPlaced(boolean placed) {
       isPlaced = placed;
+   }
+
+
+   //ship position info + get & set
+   public void setPosition(int x, int y){
+      this.x = x;
+      this.y = y;
+   }
+   public int getX() {
+      return x;
+   }
+   public void setX(int x) {
+      this.x = x;
+   }
+   public int getY() {
+      return y;
+   }
+   public void setY(int y) {
+      this.y = y;
+   }
+   public boolean isVertical() {
+      return this.isVertical;
+   }
+   public void setVertical(boolean vertical) {
+      this.isVertical = vertical;
+   }
+   public int getSize() {
+      return this.size;
+   }
+   public void setSize(int size) {
+      this.size = size;
    }
 }

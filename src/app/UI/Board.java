@@ -8,9 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import app.UI.Point;
+import app.Game.Ship;
 
 public class Board extends VBox{
 
+   private VBox rows = new VBox();
    private int x_size;
    private int y_size;
    private boolean canShoot;
@@ -50,8 +52,42 @@ public class Board extends VBox{
       this.canShoot = canShoot;
    }
 
-   public void placeShip(Ship ship, int x, int y){
+   public void placeShip(Point point, Ship ship){
 
+      if (this.canPlaceShip(point, ship)){
+         if(ship.isVertical()){
+            for (int i =  point.getPos_y(); i < point.getPos_y() + ship.getSize(); i++){
+               //color with ship + point is ship
+               Point pointToShip = getPoint(point.getPos_x(), i);
+               pointToShip.markAsShip();
+            }
+         }else{
+            for (int i =  point.getPos_x(); i < point.getPos_x() + ship.getSize(); i++){
+               //color with ship + point is ship
+               Point pointToShip = getPoint(i, point.getPos_y());
+               pointToShip.markAsShip();
+            }
+         }
+
+      }
+   }
+   public boolean canPlaceShip(Point point, Ship ship){
+      if ( point.getPos_x() < 10 && point.getPos_y() < 10){
+         if (ship.isVertical()){
+            if (point.getPos_x() + ship.getSize() < 10) {
+               return true;
+            }
+         }else{
+            if (point.getPos_y() + ship.getSize() < 10) {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+   public Point getPoint(int x, int y) {
+
+      return (Point)((HBox)rows.getChildren().get(y)).getChildren().get(x);
    }
 
 }

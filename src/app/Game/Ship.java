@@ -1,6 +1,7 @@
 package app.Game;
 
 public class Ship {
+
    private int size;
    private boolean isDestroyed;
    private boolean isVertical;

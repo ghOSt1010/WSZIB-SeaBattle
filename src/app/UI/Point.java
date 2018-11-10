@@ -8,11 +8,13 @@ public class Point extends Rectangle{
       private int x;
       private int y;
       private Color color;
-      private boolean wasHit;
+      private String ID;
+      boolean isUncovered;
 
       Point(int x, int y, Color color){
          super(25,25,color);
          this.color = color;
+         this.isUncovered = false;
       }
       Point(int x,int y, int width, int height, Color color){
          super(width,height,color);
@@ -23,6 +25,7 @@ public class Point extends Rectangle{
       public void hit(){
          setFill(Color.RED);
       }
+      public boolean uncover(){return this.isUncovered;}
 
       public void setColor(Color color){
          setFill(color);
@@ -31,5 +34,8 @@ public class Point extends Rectangle{
       public void setDefaultColor(){
          setFill(Color.AQUA);
       }
+
+      public void setID(String id){this.ID = id;}
+      public String getID(){return this.ID;}
 
 }

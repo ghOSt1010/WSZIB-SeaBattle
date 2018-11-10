@@ -1,5 +1,6 @@
 package app.UI;
 
+import app.Game.Ship;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -29,6 +30,7 @@ public class Board extends VBox{
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(25,25,Color.BLUE);
+            point.setID(Integer.toString(i) + Integer.toString(j));
             point.setOnMouseClicked(event -> OnMouseClicked(event));
             row.getChildren().add(point);
          }
@@ -39,12 +41,17 @@ public class Board extends VBox{
    private void OnMouseClicked(MouseEvent event) {
       if (this.canShoot) {
          Point point = (Point) event.getSource();
+         System.out.println(point.getID());
          point.setColor(Color.ORANGE);
       }
    }
 
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
+   }
+
+   public void placeShip(Ship ship, int x, int y){
+
    }
 
 }

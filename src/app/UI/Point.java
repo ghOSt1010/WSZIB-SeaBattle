@@ -8,27 +8,26 @@ public class Point extends Rectangle{
    private int x;
    private int y;
    private boolean isShip;
+   private boolean isDamaged;
    private boolean isUsed;
 
-   Point(int x, int y, Color color){
+   public Point(int x, int y, Color color){
          super(25,25);
          this.x= x;
          this.y = y;
          setFill(color);
          this.isShip = false;
          this.isUsed = false;
-      }
-   Point(int x,int y, int width, int height, Color color){
-         super(width,height);
-         this.x = x;
-         this.y = y;
-         setFill(color);
+         this.isDamaged = false;
       }
 
    public void hit() {
       if (this.isShip) {
+         this.isDamaged = true;
+         this.isUsed= true;
          setFill(Color.RED);
       }else{
+         this.isUsed = true;
          setFill(Color.ORANGE);
       }
    }
@@ -42,6 +41,8 @@ public class Point extends Rectangle{
       this.setColor(Color.BROWN);
       this.isShip = true;
    }
+
+   //get& set
    public int getx() {
       return x;
    }
@@ -60,12 +61,17 @@ public class Point extends Rectangle{
    public void setShip(boolean ship) {
       isShip = ship;
    }
-
    public boolean isUsed() {
       return isUsed;
    }
-
    public void setUsed(boolean used) {
       isUsed = used;
    }
+   public boolean isDamaged() {
+      return isDamaged;
+   }
+   public void setDamaged(boolean damaged) {
+      isDamaged = damaged;
+   }
+
 }

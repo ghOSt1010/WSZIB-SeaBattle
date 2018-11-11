@@ -8,33 +8,27 @@ public class Ship {
    private int y;
    private int size;
    private boolean isPlaced;
-   private boolean isDestroyed;
    private boolean isVertical;
 
    public Ship(int size, boolean isVertical){
       this.size = size;
-      this.isDestroyed = false;
+      this.isPlaced = false;
       this.isVertical = isVertical;
    }
    public Ship(int size, Point point, boolean isVertical){
       this.size = size;
+      this.isPlaced = false;
       this.x = point.getx();
       this.y = point.gety();
       this.isVertical = isVertical;
    }
-   public void setDestroyed(){
-      this.isDestroyed = true;
-   }
-   public boolean getDestroyed(){
-      return  this.isDestroyed;
-   }
+
    public boolean isPlaced() {
       return isPlaced;
    }
    public void setPlaced(boolean placed) {
       isPlaced = placed;
    }
-
 
    //ship position info + get & set
    public void setPosition(int x, int y){

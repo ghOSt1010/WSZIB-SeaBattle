@@ -36,7 +36,7 @@ public class SceneCreator {
       //setting button
       Button btnStartNewGame =new Button("New Game");
       grid.add(btnStartNewGame,5,1);
-      btnStartNewGame.setOnMouseClicked(event -> onMouseClicked(event));
+
 
       //setting Player and PC boards
       Board playerBoard =new Board(10,10,true);
@@ -51,7 +51,6 @@ public class SceneCreator {
    }
 
    private static void onMouseClicked(MouseEvent event) {
-      System.out.println("New Game Started");
    }
 
 }

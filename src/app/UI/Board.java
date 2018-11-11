@@ -1,29 +1,35 @@
 package app.UI;
 
-import app.Game.Ship;
-import javafx.event.EventHandler;
+import java.util.ArrayList;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.geometry.Point2D;
 
-import app.UI.Point;
 import app.Game.Ship;
 
 public class Board extends VBox{
 
    private VBox rows = new VBox();
+   private ArrayList<Ship> fleet = new ArrayList<>(1);
+   private int nextShip;
    private int x_size;
    private int y_size;
    private boolean canShoot;
+   private int score;
+   private boolean ShipPlace;
+   private boolean directVertical;
 
-   private boolean place = true;
-
-   Board(int x_size, int y_size, boolean canShoot){
+   public Board(int x_size, int y_size, boolean canShoot){
      this.x_size = x_size;
      this.y_size = y_size;
      this.canShoot = canShoot;
+     this.directVertical = false;
+     this.ShipPlace = true;
+     this.score = 10;
+     this.nextShip = 0;
+     initFleet();
      initBoard();
    }
 
@@ -40,6 +46,18 @@ public class Board extends VBox{
          this.getChildren().add(row);
       }
    }
+   private void initFleet(){
+      for (int i = 0; i < 4; i++){
+         fleet.add(new Ship(1,false));
+      }
+      for(int i = 0; i < 3; i ++){
+         fleet.add(new Ship(2,false));
+      }
+      for(int i = 0; i < 2; i++){
+         fleet.add(new Ship(3,false));
+      }
+      fleet.add(new Ship(4,false));
+   }
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
    }
@@ -50,12 +68,12 @@ public class Board extends VBox{
       int lenght = ship.getSize();
 
       if (this.canPlaceShip(point, ship)){
-         if(ship.isVertical()){
+         if(this.directVertical){
             for (int i =  0; i < lenght; i++){
                //color with ship + point is ship
                Point pointToShip = getPoint(x,y+i);
+               System.out.println(i);
                pointToShip.markAsShip();
-               System.out.println(pointToShip.getx() + " " + pointToShip.gety() + " " +pointToShip.isShip());
             }
          }else{
             for (int i = 0; i < lenght; i++){
@@ -64,11 +82,16 @@ public class Board extends VBox{
                pointToShip.markAsShip();
             }
          }
+         nextShip ++;
       }
+      if (this.nextShip == 10){
+         this.ShipPlace = false;
+      }
+
    }
    public boolean canPlaceShip(Point point, Ship ship){
       if ( point.getx() < 10 && point.gety() < 10){
-         if (ship.isVertical()){
+         if (this.directVertical){
             if (point.getx() + ship.getSize() <= 10) {
                return true;
             }
@@ -84,19 +107,40 @@ public class Board extends VBox{
       return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
    }
 
-   //user interaction
+   //user interaction |-> main staff to be transported to game logic
    private void OnMouseClicked(MouseEvent event) {
 
-      if (this.canShoot && place){
-         Point point = (Point) event.getSource();
-         Ship s = new Ship(4,point,false);
-         this.placeShip(point,s);
-         place = false;
-      }
+      Point point = (Point) event.getSource();
 
-      if (this.canShoot && !place) {
-         Point point = (Point) event.getSource();
+      if (this.ShipPlace){
+         if ("SECONDARY" == event.getButton().toString()) {
+            //ship orientation = vertical
+            this.directVertical = true;
+            placeShip(point,fleet.get(this.nextShip));
+         } else {
+            //ship orientation horizontal
+            this.directVertical = false;
+            placeShip(point,fleet.get(this.nextShip));
+      }
+         System.out.println(this.nextShip);
+      }
+      if (!this.ShipPlace && this.nextShip > 10){
          point.hit();
       }
+   }
+
+   public int getScore() {
+      return score;
+   }
+   public void setScore(int score) {
+      this.score = score;
+   }
+
+   public boolean areShipsPlaced() {
+      return this.ShipPlace;
+   }
+
+   public void setShipsPlaced(boolean areShipsPlaced) {
+      this.ShipPlace = areShipsPlaced;
    }
 }

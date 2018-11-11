@@ -1,5 +1,7 @@
 package app.Game;
 
+import app.UI.Point;
+
 public class Ship {
 
    private int x;
@@ -9,15 +11,15 @@ public class Ship {
    private boolean isDestroyed;
    private boolean isVertical;
 
-   public Ship(int size, boolean isDestroyed, boolean isVertical){
-      this.size = size;
-      this.isDestroyed = isDestroyed;
-      this.isVertical = isVertical;
-      this.isPlaced = false;
-   }
    public Ship(int size, boolean isVertical){
       this.size = size;
       this.isDestroyed = false;
+      this.isVertical = isVertical;
+   }
+   public Ship(int size, Point point, boolean isVertical){
+      this.size = size;
+      this.x = point.getx();
+      this.y = point.gety();
       this.isVertical = isVertical;
    }
    public void setDestroyed(){

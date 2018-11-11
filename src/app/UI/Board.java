@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.geometry.Point2D;
 
 import app.UI.Point;
 import app.Game.Ship;
@@ -16,7 +17,7 @@ public class Board extends VBox{
    private int x_size;
    private int y_size;
    private boolean canShoot;
-   private VBox board;
+   //private VBox board;
 
    Board(int x_size, int y_size, boolean canShoot){
      this.x_size = x_size;
@@ -32,7 +33,7 @@ public class Board extends VBox{
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(i,j,Color.BLUE);
-            //point.setID(Integer.toString(i) + Integer.toString(j));
+            System.out.println(point.getx() + " " + point.gety());
             point.setOnMouseClicked(event -> OnMouseClicked(event));
             row.getChildren().add(point);
          }
@@ -44,48 +45,56 @@ public class Board extends VBox{
    }
    public void placeShip(Point point, Ship ship){
 
+      int x = point.getx();
+      int y = point.gety();
+      int lenght = ship.getSize();
+
       if (this.canPlaceShip(point, ship)){
          if(ship.isVertical()){
-            for (int i =  point.getPos_y(); i < point.getPos_y() + ship.getSize(); i++){
+            for (int i =  x; i < x + lenght; i++){
                //color with ship + point is ship
-               Point pointToShip = getPoint(point.getPos_x(), i);
+               Point pointToShip = getPoint(x,y+i);
                pointToShip.markAsShip();
             }
          }else{
-            for (int i =  point.getPos_x(); i < point.getPos_x() + ship.getSize(); i++){
+            for (int i = x; i < x + lenght; i++){
                //color with ship + point is ship
-               Point pointToShip = getPoint(i, point.getPos_y());
+               Point pointToShip = getPoint(x+i, y);
                pointToShip.markAsShip();
             }
          }
 
       }
    }
+
    public boolean canPlaceShip(Point point, Ship ship){
-      if ( point.getPos_x() < 10 && point.getPos_y() < 10){
+      if ( point.getx() < 10 && point.gety() < 10){
          if (ship.isVertical()){
-            if (point.getPos_x() + ship.getSize() < 10) {
+            if (point.getx() + ship.getSize() <= 10) {
                return true;
             }
          }else{
-            if (point.getPos_y() + ship.getSize() < 10) {
+            if (point.gety() + ship.getSize() <= 10) {
                return true;
             }
          }
       }
       return false;
    }
-   public Point getPoint(int x, int y) {
 
-      return (Point)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+   public Point getPoint(int x, int y) {
+      return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
    }
+
    //user interaction
    private void OnMouseClicked(MouseEvent event) {
       if (this.canShoot) {
          Point point = (Point) event.getSource();
-         System.out.println(point.getPos_x() + " " +point.getPos_y());
          point.setColor(Color.ORANGE);
+         //point = this.getPoint(0,0);
+         Ship ship = new Ship(4,true);
+         System.out.println(point.getx() + " " + point.gety());
+         this.placeShip(point,ship);
       }
    }
-
 }

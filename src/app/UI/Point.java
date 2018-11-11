@@ -5,22 +5,22 @@ import javafx.scene.paint.Color;
 
 public class Point extends Rectangle{
 
-   private int pos_x;
-   private int pos_y;
-   private Color color;
+   private int x;
+   private int y;
    private boolean isShip;
 
-   Point(int pos_x, int pos_y, Color color){
-         super(25,25,color);
-         this.pos_x= pos_x;
-         this.pos_y = pos_y;
-         this.color = color;
+   Point(int x, int y, Color color){
+         super(25,25);
+         this.x= x;
+         this.y = y;
+         setFill(color);
          this.isShip = false;
       }
-   Point(int pos_x,int pos_y, int width, int height, Color color){
-         super(width,height,color);
-         this.pos_x = pos_x;
-         this.pos_y = pos_y;
+   Point(int x,int y, int width, int height, Color color){
+         super(width,height);
+         this.x = x;
+         this.y = y;
+         setFill(color);
       }
 
    public void hit(){
@@ -34,18 +34,19 @@ public class Point extends Rectangle{
       }
    public void markAsShip(){
       this.setColor(Color.BROWN);
+      this.isShip = true;
    }
-   public int getPos_x() {
-      return pos_x;
+   public int getx() {
+      return x;
    }
-   public void setPos_x(int pos_x) {
-      this.pos_x = pos_x;
+   public void setx(int x) {
+      this.x = x;
    }
-   public int getPos_y() {
-      return pos_y;
+   public int gety() {
+      return y;
    }
-   public void setPos_y(int pos_y) {
-      this.pos_y = pos_y;
+   public void sety(int y) {
+      this.y = y;
    }
    public boolean isShip() {
       return isShip;

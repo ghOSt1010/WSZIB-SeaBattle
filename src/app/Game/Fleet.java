@@ -18,15 +18,15 @@ public class Fleet {
 
    public void initShips(){
       for (int i = 0; i < MicroShips.length; i++){
-         MicroShips[i] =new Ship(4,false,false);
+         MicroShips[i] =new Ship(4,false);
       }
       for(int i = 0; i < MiniShips.length; i ++){
-         MiniShips[i] =new Ship(3,false,false);
+         MiniShips[i] =new Ship(3,false);
       }
       for(int i = 0; i < MidShips.length; i++){
-         MidShips[i] =new Ship(2,false,false);
+         MidShips[i] =new Ship(2,false);
       }
-      LongShip =new Ship(4,false,false);
+      LongShip =new Ship(4,false);
    }
 
 }

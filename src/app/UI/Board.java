@@ -1,6 +1,7 @@
 package app.UI;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ public class Board extends VBox{
 
    private VBox rows = new VBox();
    private ArrayList<Ship> fleet = new ArrayList<>(1);
+
    private int nextShip;
    private int x_size;
    private int y_size;
@@ -20,17 +22,22 @@ public class Board extends VBox{
    private int score;
    private boolean ShipPlace;
    private boolean directVertical;
+   private boolean isHuman;
 
-   public Board(int x_size, int y_size, boolean canShoot){
+   public Board(int x_size, int y_size, boolean canShoot, boolean isHuman){
      this.x_size = x_size;
      this.y_size = y_size;
      this.canShoot = canShoot;
      this.directVertical = false;
      this.ShipPlace = true;
+     this.isHuman = isHuman;
      this.score = 10;
      this.nextShip = 0;
      initFleet();
      initBoard();
+     if (!this.isHuman){
+        this.initPC();
+     }
    }
 
    private void initBoard(){
@@ -61,6 +68,22 @@ public class Board extends VBox{
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
    }
+   public void initPC(){
+      Random rand = new Random();
+      Point point = this.getPoint(rand.nextInt(11),rand.nextInt(11));
+      int vh = rand.nextInt(1);
+
+      if (vh == 0){
+         this.directVertical = true;
+         this.placeShip(point,fleet.get(this.nextShip));
+      }else{
+         this.directVertical = false;
+         this.placeShip(point,fleet.get(this.nextShip));
+      }
+      if (!this.ShipPlace && this.nextShip > 10){
+         point.hit();
+      }
+   }
    public void placeShip(Point point, Ship ship){
 
       int x = point.getx();
@@ -85,9 +108,9 @@ public class Board extends VBox{
          nextShip ++;
       }
       if (this.nextShip == 10){
-         this.ShipPlace = false;
+         this.ShipPlace = !this.ShipPlace;
+         this.canShoot = !this.canShoot;
       }
-
    }
    public boolean canPlaceShip(Point point, Ship ship){
       if ( point.getx() < 10 && point.gety() < 10){

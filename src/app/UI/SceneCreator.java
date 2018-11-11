@@ -39,8 +39,8 @@ public class SceneCreator {
 
 
       //setting Player and PC boards
-      Board playerBoard =new Board(10,10,true);
-      Board pcBoard =new Board(10,10,false);
+      Board playerBoard =new Board(10,10,true,true);
+      Board pcBoard =new Board(10,10,false,false);
 
       grid.add(playerBoard,2,2);
       grid.add(pcBoard,4,2);

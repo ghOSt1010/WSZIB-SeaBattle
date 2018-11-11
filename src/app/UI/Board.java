@@ -17,7 +17,8 @@ public class Board extends VBox{
    private int x_size;
    private int y_size;
    private boolean canShoot;
-   //private VBox board;
+
+   private boolean place = true;
 
    Board(int x_size, int y_size, boolean canShoot){
      this.x_size = x_size;
@@ -33,7 +34,6 @@ public class Board extends VBox{
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(i,j,Color.BLUE);
-            System.out.println(point.getx() + " " + point.gety());
             point.setOnMouseClicked(event -> OnMouseClicked(event));
             row.getChildren().add(point);
          }
@@ -51,22 +51,21 @@ public class Board extends VBox{
 
       if (this.canPlaceShip(point, ship)){
          if(ship.isVertical()){
-            for (int i =  x; i < x + lenght; i++){
+            for (int i =  0; i < lenght; i++){
                //color with ship + point is ship
                Point pointToShip = getPoint(x,y+i);
                pointToShip.markAsShip();
+               System.out.println(pointToShip.getx() + " " + pointToShip.gety() + " " +pointToShip.isShip());
             }
          }else{
-            for (int i = x; i < x + lenght; i++){
+            for (int i = 0; i < lenght; i++){
                //color with ship + point is ship
                Point pointToShip = getPoint(x+i, y);
                pointToShip.markAsShip();
             }
          }
-
       }
    }
-
    public boolean canPlaceShip(Point point, Ship ship){
       if ( point.getx() < 10 && point.gety() < 10){
          if (ship.isVertical()){
@@ -81,20 +80,23 @@ public class Board extends VBox{
       }
       return false;
    }
-
    public Point getPoint(int x, int y) {
       return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
    }
 
    //user interaction
    private void OnMouseClicked(MouseEvent event) {
-      if (this.canShoot) {
+
+      if (this.canShoot && place){
          Point point = (Point) event.getSource();
-         point.setColor(Color.ORANGE);
-         //point = this.getPoint(0,0);
-         Ship ship = new Ship(4,true);
-         System.out.println(point.getx() + " " + point.gety());
-         this.placeShip(point,ship);
+         Ship s = new Ship(4,point,false);
+         this.placeShip(point,s);
+         place = false;
+      }
+
+      if (this.canShoot && !place) {
+         Point point = (Point) event.getSource();
+         point.hit();
       }
    }
 }

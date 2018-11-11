@@ -8,6 +8,7 @@ public class Point extends Rectangle{
    private int x;
    private int y;
    private boolean isShip;
+   private boolean isUsed;
 
    Point(int x, int y, Color color){
          super(25,25);
@@ -15,6 +16,7 @@ public class Point extends Rectangle{
          this.y = y;
          setFill(color);
          this.isShip = false;
+         this.isUsed = false;
       }
    Point(int x,int y, int width, int height, Color color){
          super(width,height);
@@ -23,9 +25,13 @@ public class Point extends Rectangle{
          setFill(color);
       }
 
-   public void hit(){
+   public void hit() {
+      if (this.isShip) {
          setFill(Color.RED);
+      }else{
+         setFill(Color.ORANGE);
       }
+   }
    public void setColor(Color color){
          setFill(color);
       }
@@ -53,5 +59,13 @@ public class Point extends Rectangle{
    }
    public void setShip(boolean ship) {
       isShip = ship;
+   }
+
+   public boolean isUsed() {
+      return isUsed;
+   }
+
+   public void setUsed(boolean used) {
+      isUsed = used;
    }
 }

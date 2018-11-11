@@ -107,7 +107,7 @@ public class Board extends VBox{
       return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
    }
 
-   //user interaction |-> main staff to be transported to game logic
+   //user interaction
    private void OnMouseClicked(MouseEvent event) {
 
       Point point = (Point) event.getSource();

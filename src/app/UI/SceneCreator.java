@@ -71,14 +71,12 @@ public class SceneCreator {
          _pcBoard.shootPC(_playerBoard);
       }
 
-      Label _playerLabel = (Label) getNode.getNodeByRowColumnIndex(1, 2, app);
-      app.getChildren().remove(_playerLabel);
-      _playerLabel = new Label("Player | Score: " + _playerBoard.getScore());
+      app.getChildren().remove(getNode.getNodeByRowColumnIndex(1, 2, app));
+      Label _playerLabel = new Label("Player | Score: " + _playerBoard.getScore());
       app.add(_playerLabel, 2, 1);
 
-      Label _pcLabel = (Label) getNode.getNodeByRowColumnIndex(1, 4, app);
-      app.getChildren().remove(_pcLabel);
-      _pcLabel = new Label("PC | Score: " + _pcBoard.getScore());
+      app.getChildren().remove(getNode.getNodeByRowColumnIndex(1, 4, app));
+      Label _pcLabel = new Label("PC | Score: " + _pcBoard.getScore());
       app.add(_pcLabel, 4, 1);
    }
 }

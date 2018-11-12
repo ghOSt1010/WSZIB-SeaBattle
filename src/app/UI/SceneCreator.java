@@ -1,22 +1,26 @@
 package app.UI;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
-
-import app.UI.*;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 public class SceneCreator {
 
-   public static Scene createScene(){
+   Board playerBoard = null;
+   Board pcBoard = null;
+   private boolean isPlayerTurn;
+
+   public SceneCreator(){
+      this.playerBoard =new Board(10,10,true,true);
+      this.pcBoard = new Board(10,10,false,false);
+      this.isPlayerTurn = true;
+   }
+
+   public Scene createScene(){
       //setting main grid
       GridPane grid =new GridPane();
 
@@ -39,13 +43,11 @@ public class SceneCreator {
 
 
       //setting Player and PC boards
-      Board playerBoard =new Board(10,10,true,true);
-      Board pcBoard =new Board(10,10,false,false);
+      playerBoard.setOnMouseClicked(event -> onMouseClicked(event));
+      pcBoard.setOnMouseClicked(event -> onMouseClicked(event));
+
       pcBoard.initPC();
       pcBoard.setShootable(true);
-      if(!pcBoard.areShipsPlaced()){
-         pcBoard.setShootable(true);
-      }
 
       grid.add(playerBoard,2,2);
       grid.add(pcBoard,4,2);
@@ -56,6 +58,10 @@ public class SceneCreator {
    }
 
    private static void onMouseClicked(MouseEvent event) {
+      Board board = (Board) event.getSource();
+      //TODO
+      //gameplay to be developed here
+
    }
 
 }

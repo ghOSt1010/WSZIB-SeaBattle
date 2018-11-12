@@ -1,14 +1,13 @@
 package app.UI;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import app.Game.Ship;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import app.Game.Ship;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Board extends VBox{
 
@@ -81,6 +80,29 @@ public class Board extends VBox{
             this.placeShip(point, fleet.get(this.nextShip));
          }
       }
+   }
+   public void placePCShip(){
+      Random rand = new Random();
+      Point point = this.getPoint(rand.nextInt(9),rand.nextInt(9));
+      int vh = rand.nextInt(1);
+      if (vh == 0) {
+         this.directVertical = true;
+         this.placeShip(point, fleet.get(this.nextShip));
+      } else {
+         this.directVertical = false;
+         this.placeShip(point, fleet.get(this.nextShip));
+      }
+   }
+   public boolean shootPC(){
+      Random rand = new Random();
+      Point point = this.getPoint(rand.nextInt(9),rand.nextInt(9));
+      if(!point.isUsed()){
+         point.hit();
+         return true;
+      }else{
+         this.shootPC();
+      }
+      return false;
    }
    public void placeShip(Point point, Ship ship){
 

@@ -35,9 +35,6 @@ public class Board extends VBox{
      this.nextShip = 0;
      initFleet();
      initBoard();
-     if (!this.isHuman){
-        this.initPC();
-     }
    }
 
    private void initBoard(){
@@ -69,19 +66,18 @@ public class Board extends VBox{
       this.canShoot = canShoot;
    }
    public void initPC(){
-      Random rand = new Random();
-      Point point = this.getPoint(rand.nextInt(11),rand.nextInt(11));
-      int vh = rand.nextInt(1);
 
-      if (vh == 0){
-         this.directVertical = true;
-         this.placeShip(point,fleet.get(this.nextShip));
-      }else{
-         this.directVertical = false;
-         this.placeShip(point,fleet.get(this.nextShip));
-      }
-      if (!this.ShipPlace && this.nextShip > 10){
-         point.hit();
+      while(this.ShipPlace){
+         Random rand = new Random();
+         Point point = this.getPoint(rand.nextInt(9),rand.nextInt(9));
+         int vh = rand.nextInt(1);
+         if (vh == 0) {
+            this.directVertical = true;
+            this.placeShip(point, fleet.get(this.nextShip));
+         } else {
+            this.directVertical = false;
+            this.placeShip(point, fleet.get(this.nextShip));
+         }
       }
    }
    public void placeShip(Point point, Ship ship){
@@ -95,32 +91,43 @@ public class Board extends VBox{
             for (int i =  0; i < lenght; i++){
                //color with ship + point is ship
                Point pointToShip = getPoint(x,y+i);
-               System.out.println(i);
-               pointToShip.markAsShip();
+               if (this.isHuman) {
+                  pointToShip.markAsShip();
+               }else{
+                  pointToShip.setShip(true);
+               }
             }
          }else{
             for (int i = 0; i < lenght; i++){
                //color with ship + point is ship
                Point pointToShip = getPoint(x+i, y);
-               pointToShip.markAsShip();
+               if (this.isHuman) {
+                  pointToShip.markAsShip();
+               }else{
+                  pointToShip.setShip(true);
+               }
             }
          }
          nextShip ++;
+         if (this.nextShip == 10){
+            this.ShipPlace = false;
+            this.canShoot = true;
+         }
+         System.out.println(this.nextShip + " " + this.ShipPlace);
       }
-      if (this.nextShip == 10){
-         this.ShipPlace = !this.ShipPlace;
-         this.canShoot = !this.canShoot;
-      }
+
    }
    public boolean canPlaceShip(Point point, Ship ship){
-      if ( point.getx() < 10 && point.gety() < 10){
-         if (this.directVertical){
-            if (point.getx() + ship.getSize() <= 10) {
-               return true;
-            }
-         }else{
-            if (point.gety() + ship.getSize() <= 10) {
-               return true;
+      if (this.ShipPlace){
+         if ( point.getx() < 10 && point.gety() < 10){
+            if (this.directVertical){
+               if (point.getx() + ship.getSize() <= 10) {
+                  return true;
+               }
+            }else{
+               if (point.gety() + ship.getSize() <= 10) {
+                  return true;
+               }
             }
          }
       }
@@ -147,7 +154,7 @@ public class Board extends VBox{
       }
          System.out.println(this.nextShip);
       }
-      if (!this.ShipPlace && this.nextShip > 10){
+      if (!this.ShipPlace && this.nextShip == 10 && this.canShoot){
          point.hit();
       }
    }
@@ -158,12 +165,12 @@ public class Board extends VBox{
    public void setScore(int score) {
       this.score = score;
    }
-
    public boolean areShipsPlaced() {
       return this.ShipPlace;
    }
-
    public void setShipsPlaced(boolean areShipsPlaced) {
       this.ShipPlace = areShipsPlaced;
    }
+   public  boolean isShootable(){return this.canShoot;}
+   public void setShootable(boolean Shootable){this.canShoot = Shootable;}
 }

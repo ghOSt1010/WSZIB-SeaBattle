@@ -210,9 +210,6 @@ public class Board extends VBox{
          if (this.canShoot){
             if (point.hit()){
                score--;
-               System.out.println("Can interact: " +canInteract);
-               System.out.println("Can shoot: " +canShoot);
-               System.out.println("Player: " +score);
             }
          }
       }

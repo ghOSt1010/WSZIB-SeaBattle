@@ -1,9 +1,8 @@
 package app.UI;
 
-import javafx.collections.ObservableList;
+import app.tools.GetNode;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,20 +49,6 @@ public class SceneCreator {
 
       return appWindow;
    }
-
-   public Node getNodeByRowColumnIndex (final int row, final int column) {
-      Node result = null;
-      ObservableList<Node> childrens = this.grid.getChildren();
-
-      for (Node node : childrens) {
-         if(this.grid.getRowIndex(node) == row && this.grid.getColumnIndex(node) == column) {
-            result = node;
-            break;
-         }
-      }
-
-      return result;
-   }
    private void setLabels(){
       Label lbPlayer =new Label("Player");
       lbPlayer.setAlignment(Pos.CENTER);
@@ -73,13 +58,16 @@ public class SceneCreator {
       grid.add(lbPC,4,1);
    }
    private static void onMouseClicked(MouseEvent event) {
-      //Board playerBoard = (Board) getNodeByRowColumnIndex(2,2);
-      //Board pcBoard = (Board) getNodeByRowColumnIndex(2,4);
+      GridPane app = (GridPane) event.getSource();
+      GetNode getNode =new GetNode();
 
-      //if(playerBoard.areShipsPlaced()){
-      //   pcBoard.setShootable(true);
-      //}
+      Board _playerBoard = (Board)getNode.getNodeByRowColumnIndex(2,2,app);
+      Board _pcBoard = (Board)getNode.getNodeByRowColumnIndex(2,2,app);
 
+      if(!_playerBoard.areShipsPlaced()){
+         _pcBoard.shootPC(_playerBoard);
+         System.out.println("test : " + _pcBoard.isShootable());
+      }
    }
 
 }

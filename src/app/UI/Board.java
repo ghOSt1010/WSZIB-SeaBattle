@@ -137,11 +137,6 @@ public class Board extends VBox{
          nextShip ++;
          if (this.nextShip == 10){
             this.ShipPlace = false;
-            if(this.isHuman){
-               this.canShoot = false;
-            }else{
-               this.canShoot = true;
-            }
          }
       }
    }

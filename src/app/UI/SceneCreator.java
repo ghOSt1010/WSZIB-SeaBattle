@@ -58,6 +58,8 @@ public class SceneCreator {
       lbPC.setAlignment(Pos.CENTER);
       grid.add(lbPC,4,1);
    }
+
+   //main game interaction
    private static void onMouseClicked(MouseEvent event) {
       GridPane app = (GridPane) event.getSource();
       GetNode getNode =new GetNode();
@@ -68,5 +70,15 @@ public class SceneCreator {
       if(!_playerBoard.areShipsPlaced()){
          _pcBoard.shootPC(_playerBoard);
       }
+
+      Label _playerLabel = (Label) getNode.getNodeByRowColumnIndex(1, 2, app);
+      app.getChildren().remove(_playerLabel);
+      _playerLabel = new Label("Player | Score: " + _playerBoard.getScore());
+      app.add(_playerLabel, 2, 1);
+
+      Label _pcLabel = (Label) getNode.getNodeByRowColumnIndex(1, 4, app);
+      app.getChildren().remove(_pcLabel);
+      _pcLabel = new Label("PC | Score: " + _pcBoard.getScore());
+      app.add(_pcLabel, 4, 1);
    }
 }

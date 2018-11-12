@@ -45,6 +45,7 @@ public class Board extends VBox{
          row.setSpacing(5);
          for(int j =0; j <this.x_size; j++){
             Point point =new Point(i,j,Color.BLUE);
+            point.setShip(false);
             point.setOnMouseClicked(event -> OnMouseClicked(event));
             row.getChildren().add(point);
          }
@@ -147,37 +148,40 @@ public class Board extends VBox{
       }
    }
    public boolean canPlaceShip(Point point, Ship ship){
-
+      if (point.isShip()) {
+         return false;
+      }
       if (this.ShipPlace){
 
          if(this.directVertical){
             if(point.gety() + ship.getSize()-1 < 9){
-               return true;
+               return !this.shipOverlap(point, ship);
             }
          }else{
             if(point.getx() + ship.getSize()-1 < 9){
-               return true;
+               return !this.shipOverlap(point, ship);
             }
          }
          return false;
       }
       return false;
    }
+
+   //FIXME
    private boolean shipOverlap(Point point, Ship ship){
+      System.out.println("Shipoverlap test:");
       if(this.directVertical) {
          for (int i = 0; i == ship.getSize(); i++) {
             Point _point = this.getPoint(point.getx() + i, point.gety());
-            System.out.println("Testing " + point.isShip());
             if (point.isShip()) {
-               return true;
+               return false;
             }
          }
       }else{
          for (int i = 0; i == ship.getSize(); i++) {
             Point _point = this.getPoint(point.getx(), point.gety()+i);
-            System.out.println("Testing " + point.isShip());
             if (point.isShip()) {
-               return true;
+               return false;
             }
          }
       }

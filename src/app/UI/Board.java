@@ -66,7 +66,8 @@ public class Board extends VBox{
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
    }
-   //PC player controls
+
+   //PC strict player controls
    public void initPC(){
 
       while(this.ShipPlace){
@@ -109,6 +110,8 @@ public class Board extends VBox{
       }
       return false;
    }
+
+   //other methods
    public void placeShip(Point point, Ship ship){
 
       int x = point.getx();
@@ -180,15 +183,10 @@ public class Board extends VBox{
       }
       return false;
    }
-   public Point getPoint(int x, int y) {
-      return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
-   }
-   public Point getPointFromBoard(int x, int y, Board board) {
-      return (Point)((HBox)board.getChildren().get(x)).getChildren().get(y);
-   }
 
    //user interaction
    private void OnMouseClicked(MouseEvent event) {
+
       if(this.canInteract){
          Point point = (Point) event.getSource();
 
@@ -208,12 +206,21 @@ public class Board extends VBox{
          if (this.canShoot){
             if (point.hit()){
                score--;
+               System.out.println("Can interact: " +canInteract);
+               System.out.println("Can shoot: " +canShoot);
                System.out.println("Player: " +score);
             }
          }
       }
    }
 
+   //get <-> set
+   public Point getPoint(int x, int y) {
+      return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
+   }
+   public Point getPointFromBoard(int x, int y, Board board) {
+      return (Point)((HBox)board.getChildren().get(x)).getChildren().get(y);
+   }
    public int getScore() {
       return score;
    }

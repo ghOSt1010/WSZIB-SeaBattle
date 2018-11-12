@@ -42,7 +42,8 @@ public class SceneCreator {
       Board playerBoard =new Board(10,10,true,true);
       Board pcBoard =new Board(10,10,false,false);
       pcBoard.initPC();
-      if(pcBoard.areShipsPlaced()){
+      pcBoard.setShootable(true);
+      if(!pcBoard.areShipsPlaced()){
          pcBoard.setShootable(true);
       }
 

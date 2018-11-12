@@ -18,16 +18,18 @@ public class Board extends VBox{
    private int nextShip;
    private int x_size;
    private int y_size;
-   private boolean canShoot;
    private int score;
    private boolean ShipPlace;
    private boolean directVertical;
+   private boolean canShoot;
+   private boolean canInteract;
    private boolean isHuman;
 
-   public Board(int x_size, int y_size, boolean canShoot, boolean isHuman){
+   public Board(int x_size, int y_size, boolean canInteract, boolean isHuman){
      this.x_size = x_size;
      this.y_size = y_size;
-     this.canShoot = canShoot;
+     this.canInteract = canInteract;
+     this.canShoot = false;
      this.directVertical = false;
      this.ShipPlace = true;
      this.isHuman = isHuman;
@@ -111,25 +113,28 @@ public class Board extends VBox{
          nextShip ++;
          if (this.nextShip == 10){
             this.ShipPlace = false;
-            this.canShoot = true;
-         }
-         System.out.println(this.nextShip + " " + this.ShipPlace);
-      }
-
-   }
-   public boolean canPlaceShip(Point point, Ship ship){
-      if (this.ShipPlace){
-         if ( point.getx() < 10 && point.gety() < 10){
-            if (this.directVertical){
-               if (point.getx() + ship.getSize() <= 10) {
-                  return true;
-               }
+            if(this.isHuman){
+               this.canShoot = false;
             }else{
-               if (point.gety() + ship.getSize() <= 10) {
-                  return true;
-               }
+               this.canShoot = true;
             }
          }
+      }
+   }
+   public boolean canPlaceShip(Point point, Ship ship){
+
+      if (this.ShipPlace){
+
+         if(this.directVertical){
+            if(point.gety() + ship.getSize()-1 < 9){
+               return true;
+            }
+         }else{
+            if(point.getx() + ship.getSize()-1 < 9){
+               return true;
+            }
+         }
+         return false;
       }
       return false;
    }
@@ -142,6 +147,7 @@ public class Board extends VBox{
 
       Point point = (Point) event.getSource();
 
+      //ship placing mode
       if (this.ShipPlace){
          if ("SECONDARY" == event.getButton().toString()) {
             //ship orientation = vertical
@@ -151,10 +157,11 @@ public class Board extends VBox{
             //ship orientation horizontal
             this.directVertical = false;
             placeShip(point,fleet.get(this.nextShip));
+         }
       }
-         System.out.println(this.nextShip);
-      }
-      if (!this.ShipPlace && this.nextShip == 10 && this.canShoot){
+
+      //ship fight mode
+      if (this.canShoot){
          point.hit();
       }
    }

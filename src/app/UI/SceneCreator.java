@@ -1,7 +1,9 @@
 package app.UI;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,42 +12,34 @@ import javafx.scene.layout.GridPane;
 
 public class SceneCreator {
 
-   Board playerBoard = null;
-   Board pcBoard = null;
+   private Board playerBoard = null;
+   private Board pcBoard = null;
+   //setting main grid
+   GridPane grid = null;
+
+   private boolean PlayerSetShips;
    private boolean isPlayerTurn;
 
    public SceneCreator(){
       this.playerBoard =new Board(10,10,true,true);
       this.pcBoard = new Board(10,10,false,false);
+      this.grid = new GridPane();
+      this.PlayerSetShips = false;
       this.isPlayerTurn = true;
+      this.grid.setHgap(10);
+      this.grid.setVgap(10);
+      this.grid.setPadding(new Insets(25, 25, 25, 25));
    }
 
    public Scene createScene(){
-      //setting main grid
-      GridPane grid =new GridPane();
-
-      //grid.setAlignment();
-      grid.setHgap(10);
-      grid.setVgap(10);
-      grid.setPadding(new Insets(25, 25, 25, 25));
-
-      //setting labels
-      Label lbPlayer =new Label("Player");
-      lbPlayer.setAlignment(Pos.CENTER);
-      grid.add(lbPlayer,2,1);
-      Label lbPC =new Label("PC");
-      lbPC.setAlignment(Pos.CENTER);
-      grid.add(lbPC,4,1);
-
       //setting button
       Button btnStartNewGame =new Button("New Game");
       grid.add(btnStartNewGame,5,1);
-
+      grid.setOnMouseClicked(event -> onMouseClicked(event));
+      //setting labels
+      this.setLabels();
 
       //setting Player and PC boards
-      playerBoard.setOnMouseClicked(event -> onMouseClicked(event));
-      pcBoard.setOnMouseClicked(event -> onMouseClicked(event));
-
       pcBoard.initPC();
       pcBoard.setShootable(true);
 
@@ -57,10 +51,34 @@ public class SceneCreator {
       return appWindow;
    }
 
+   public Node getNodeByRowColumnIndex (final int row, final int column) {
+      Node result = null;
+      ObservableList<Node> childrens = this.grid.getChildren();
+
+      for (Node node : childrens) {
+         if(this.grid.getRowIndex(node) == row && this.grid.getColumnIndex(node) == column) {
+            result = node;
+            break;
+         }
+      }
+
+      return result;
+   }
+   private void setLabels(){
+      Label lbPlayer =new Label("Player");
+      lbPlayer.setAlignment(Pos.CENTER);
+      grid.add(lbPlayer,2,1);
+      Label lbPC =new Label("PC");
+      lbPC.setAlignment(Pos.CENTER);
+      grid.add(lbPC,4,1);
+   }
    private static void onMouseClicked(MouseEvent event) {
-      Board board = (Board) event.getSource();
-      //TODO
-      //gameplay to be developed here
+      //Board playerBoard = (Board) getNodeByRowColumnIndex(2,2);
+      //Board pcBoard = (Board) getNodeByRowColumnIndex(2,4);
+
+      //if(playerBoard.areShipsPlaced()){
+      //   pcBoard.setShootable(true);
+      //}
 
    }
 

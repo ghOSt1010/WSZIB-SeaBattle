@@ -66,6 +66,7 @@ public class Board extends VBox{
    public void setCanShoot(boolean canShoot){
       this.canShoot = canShoot;
    }
+   //PC player controls
    public void initPC(){
 
       while(this.ShipPlace){
@@ -93,17 +94,18 @@ public class Board extends VBox{
          this.placeShip(point, fleet.get(this.nextShip));
       }
    }
-   public boolean shootPC(){
+   public boolean shootPC(Board board){
       Random rand = new Random();
-      Point point = this.getPoint(rand.nextInt(9),rand.nextInt(9));
+      Point point = this.getPointFromBoard(rand.nextInt(9),rand.nextInt(9),board);
       if(!point.isUsed()){
          point.hit();
          return true;
       }else{
-         this.shootPC();
+         this.shootPC(board);
       }
       return false;
    }
+
    public void placeShip(Point point, Ship ship){
 
       int x = point.getx();
@@ -162,6 +164,9 @@ public class Board extends VBox{
    }
    public Point getPoint(int x, int y) {
       return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
+   }
+   public Point getPointFromBoard(int x, int y, Board board) {
+      return (Point)((HBox)board.getChildren().get(x)).getChildren().get(y);
    }
 
    //user interaction

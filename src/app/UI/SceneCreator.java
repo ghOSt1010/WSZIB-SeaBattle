@@ -4,6 +4,7 @@ import app.tools.GetNode;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -78,5 +79,17 @@ public class SceneCreator {
       app.getChildren().remove(getNode.getNodeByRowColumnIndex(1, 4, app));
       Label _pcLabel = new Label("PC | Score: " + _pcBoard.getScore());
       app.add(_pcLabel, 4, 1);
+
+      if (_playerBoard.getScore() == 0) {
+         Alert msg = new Alert(Alert.AlertType.INFORMATION);
+         msg.setTitle("Winner is...");
+         msg.setContentText("PC :(");
+      }
+      if (_pcBoard.getScore() == 0) {
+         Alert msg = new Alert(Alert.AlertType.INFORMATION);
+         msg.setTitle("Winner is...");
+         msg.setContentText("YOU !");
+      }
+
    }
 }

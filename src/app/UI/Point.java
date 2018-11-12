@@ -1,7 +1,7 @@
 package app.UI;
 
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Point extends Rectangle{
 
@@ -21,14 +21,16 @@ public class Point extends Rectangle{
          this.isDamaged = false;
       }
 
-   public void hit() {
+   public boolean hit() {
       if (this.isShip) {
          this.isDamaged = true;
          this.isUsed= true;
          setFill(Color.RED);
+         return true;
       }else{
          this.isUsed = true;
          setFill(Color.ORANGE);
+         return false;
       }
    }
    public void setColor(Color color){

@@ -41,6 +41,7 @@ public class SceneCreator {
       //setting Player and PC boards
       pcBoard.initPC();
       pcBoard.setShootable(true);
+      pcBoard.setCanInteract(true);
 
       grid.add(playerBoard,2,2);
       grid.add(pcBoard,4,2);
@@ -66,8 +67,6 @@ public class SceneCreator {
 
       if(!_playerBoard.areShipsPlaced()){
          _pcBoard.shootPC(_playerBoard);
-         System.out.println("test : " + _pcBoard.isShootable());
       }
    }
-
 }

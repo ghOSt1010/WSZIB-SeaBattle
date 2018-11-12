@@ -32,7 +32,7 @@ public class Board extends VBox{
      this.directVertical = false;
      this.ShipPlace = true;
      this.isHuman = isHuman;
-     this.score = 10;
+     this.score = 20;
      this.nextShip = 0;
      initFleet();
      initBoard();
@@ -96,16 +96,19 @@ public class Board extends VBox{
    }
    public boolean shootPC(Board board){
       Random rand = new Random();
-      Point point = this.getPointFromBoard(rand.nextInt(9),rand.nextInt(9),board);
+      Point point = this.getPointFromBoard(rand.nextInt(10),rand.nextInt(10),board);
       if(!point.isUsed()){
-         point.hit();
-         return true;
+         if(point.hit()){
+            this.score --;
+            System.out.println("PC: " + this.score);
+            return true;
+         }
+
       }else{
          this.shootPC(board);
       }
       return false;
    }
-
    public void placeShip(Point point, Ship ship){
 
       int x = point.getx();
@@ -157,6 +160,26 @@ public class Board extends VBox{
       }
       return false;
    }
+   private boolean shipOverlap(Point point, Ship ship){
+      if(this.directVertical) {
+         for (int i = 0; i == ship.getSize(); i++) {
+            Point _point = this.getPoint(point.getx() + i, point.gety());
+            System.out.println("Testing " + point.isShip());
+            if (point.isShip()) {
+               return true;
+            }
+         }
+      }else{
+         for (int i = 0; i == ship.getSize(); i++) {
+            Point _point = this.getPoint(point.getx(), point.gety()+i);
+            System.out.println("Testing " + point.isShip());
+            if (point.isShip()) {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
    public Point getPoint(int x, int y) {
       return (Point)((HBox)this.getChildren().get(x)).getChildren().get(y);
    }
@@ -166,25 +189,28 @@ public class Board extends VBox{
 
    //user interaction
    private void OnMouseClicked(MouseEvent event) {
+      if(this.canInteract){
+         Point point = (Point) event.getSource();
 
-      Point point = (Point) event.getSource();
-
-      //ship placing mode
-      if (this.ShipPlace){
-         if ("SECONDARY" == event.getButton().toString()) {
-            //ship orientation = vertical
-            this.directVertical = true;
-            placeShip(point,fleet.get(this.nextShip));
-         } else {
-            //ship orientation horizontal
-            this.directVertical = false;
-            placeShip(point,fleet.get(this.nextShip));
+         //ship placing mode
+         if (this.ShipPlace){
+            if ("SECONDARY" == event.getButton().toString()) {
+               //ship orientation = vertical
+               this.directVertical = true;
+               placeShip(point,fleet.get(this.nextShip));
+            } else {
+               //ship orientation horizontal
+               this.directVertical = false;
+               placeShip(point,fleet.get(this.nextShip));
+            }
          }
-      }
-
-      //ship fight mode
-      if (this.canShoot){
-         point.hit();
+         //ship fight mode
+         if (this.canShoot){
+            if (point.hit()){
+               score--;
+               System.out.println("Player: " +score);
+            }
+         }
       }
    }
 
@@ -202,4 +228,6 @@ public class Board extends VBox{
    }
    public  boolean isShootable(){return this.canShoot;}
    public void setShootable(boolean Shootable){this.canShoot = Shootable;}
+   public void setCanInteract(boolean CanInteract){this.canInteract = CanInteract;}
+   public boolean setCanInteract(){return this.canInteract;}
 }

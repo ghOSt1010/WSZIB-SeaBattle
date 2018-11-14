@@ -17,15 +17,10 @@ public class SceneCreator {
    //setting main grid
    GridPane grid = null;
 
-   private boolean PlayerSetShips;
-   private boolean isPlayerTurn;
-
    public SceneCreator(){
       this.playerBoard =new Board(10,10,true,true);
       this.pcBoard = new Board(10,10,false,false);
       this.grid = new GridPane();
-      this.PlayerSetShips = false;
-      this.isPlayerTurn = true;
       this.grid.setHgap(10);
       this.grid.setVgap(10);
       this.grid.setPadding(new Insets(25, 25, 25, 25));

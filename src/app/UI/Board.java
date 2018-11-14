@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class Board extends VBox{
 
-   private VBox rows = new VBox();
    private ArrayList<Ship> fleet = new ArrayList<>(1);
 
    private int nextShip;
@@ -64,9 +63,6 @@ public class Board extends VBox{
       }
       fleet.add(new Ship(4,false));
    }
-   public void setCanShoot(boolean canShoot){
-      this.canShoot = canShoot;
-   }
 
    //PC strict player controls
    public void initPC(){
@@ -84,18 +80,7 @@ public class Board extends VBox{
          }
       }
    }
-   public void placePCShip(){
-      Random rand = new Random();
-      Point point = this.getPoint(rand.nextInt(9),rand.nextInt(9));
-      int vh = rand.nextInt(1);
-      if (vh == 0) {
-         this.directVertical = true;
-         this.placeShip(point, fleet.get(this.nextShip));
-      } else {
-         this.directVertical = false;
-         this.placeShip(point, fleet.get(this.nextShip));
-      }
-   }
+
    public boolean shootPC(Board board){
       Random rand = new Random();
       Point point = this.getPointFromBoard(rand.nextInt(10),rand.nextInt(10),board);
@@ -166,10 +151,8 @@ public class Board extends VBox{
       }
       return false;
    }
-
-   //FIXME
+   
    private boolean shipOverlap(Point point, Ship ship){
-      System.out.println("Shipoverlap test:");
       if(this.directVertical) {
          for (int i = 0; i == ship.getSize(); i++) {
             Point _point = this.getPoint(point.getx() + i, point.gety());
@@ -225,17 +208,11 @@ public class Board extends VBox{
    public int getScore() {
       return score;
    }
-   public void setScore(int score) {
-      this.score = score;
-   }
+
    public boolean areShipsPlaced() {
       return this.ShipPlace;
    }
-   public void setShipsPlaced(boolean areShipsPlaced) {
-      this.ShipPlace = areShipsPlaced;
-   }
-   public  boolean isShootable(){return this.canShoot;}
+
    public void setShootable(boolean Shootable){this.canShoot = Shootable;}
    public void setCanInteract(boolean CanInteract){this.canInteract = CanInteract;}
-   public boolean setCanInteract(){return this.canInteract;}
 }

@@ -8,7 +8,6 @@ public class Point extends Rectangle{
    private int x;
    private int y;
    private boolean isShip;
-   private boolean isDamaged;
    private boolean isUsed;
 
    public Point(int x, int y, Color color){
@@ -18,12 +17,10 @@ public class Point extends Rectangle{
          setFill(color);
          this.isShip = false;
          this.isUsed = false;
-         this.isDamaged = false;
-      }
+   }
 
    public boolean hit() {
       if (this.isShip) {
-         this.isDamaged = true;
          this.isUsed= true;
          setFill(Color.RED);
          return true;
@@ -36,9 +33,7 @@ public class Point extends Rectangle{
    public void setColor(Color color){
          setFill(color);
       }
-   public void setDefaultColor(){
-         setFill(Color.AQUA);
-      }
+
    public void markAsShip(){
       this.setColor(Color.BROWN);
       this.isShip = true;
@@ -48,15 +43,11 @@ public class Point extends Rectangle{
    public int getx() {
       return x;
    }
-   public void setx(int x) {
-      this.x = x;
-   }
+
    public int gety() {
       return y;
    }
-   public void sety(int y) {
-      this.y = y;
-   }
+
    public boolean isShip() {
       return isShip;
    }
@@ -65,15 +56,6 @@ public class Point extends Rectangle{
    }
    public boolean isUsed() {
       return isUsed;
-   }
-   public void setUsed(boolean used) {
-      isUsed = used;
-   }
-   public boolean isDamaged() {
-      return isDamaged;
-   }
-   public void setDamaged(boolean damaged) {
-      isDamaged = damaged;
    }
 
 }

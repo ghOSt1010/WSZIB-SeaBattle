@@ -47,10 +47,10 @@ public class SceneCreator {
       return appWindow;
    }
    private void setLabels(){
-      Label lbPlayer =new Label("Player");
+      Label lbPlayer = new Label("Player_");
       lbPlayer.setAlignment(Pos.CENTER);
       grid.add(lbPlayer,2,1);
-      Label lbPC =new Label("PC");
+      Label lbPC = new Label("_PC_");
       lbPC.setAlignment(Pos.CENTER);
       grid.add(lbPC,4,1);
    }
